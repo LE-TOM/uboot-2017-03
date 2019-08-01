@@ -61,6 +61,9 @@ switch_to_hypervisor_ret:
 	orr	r0, r0, #0xc0		@ disable FIQ and IRQ
 	msr	cpsr,r0
 
+	bl led_config
+	bl led_off_all
+	bl led_on_1
 /*
  * Setup vector:
  * (OMAP4 spl TEXT_BASE is not 32 byte aligned.
@@ -293,3 +296,21 @@ ENTRY(cpu_init_crit)
 	b	lowlevel_init		@ go setup pll,mux,memory
 ENDPROC(cpu_init_crit)
 #endif
+	.global led_config
+
+led_config:
+	ldr r0,=0x110002E0 
+	ldr r1,=0x1111
+	str r1,[r0]
+
+	bx lr
+led_off_all:
+	ldr r0,=0x110002E4 
+	ldr r1,=0x0f
+	str r1,[r0]
+	bx lr
+led_on_1:
+	ldr r0,=0x110002E4 
+	ldr r1,=0x05
+	str r1,[r0]
+	bx lr

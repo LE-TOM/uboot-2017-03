@@ -1,0 +1,18 @@
+if TARGET_TINY4412
+
+config SYS_BOARD
+	default "tiny4412"
+
+config SYS_VENDOR
+	default "samsung"
+
+config SYS_CONFIG_NAME
+	default "tiny4412"
+
+config EXYNOS4412
+	default y
+	bool "for CONFIG_EXYNOS4412"
+config TINY4412
+	default y
+	bool "for CONFIG_TINY4412"
+endif
